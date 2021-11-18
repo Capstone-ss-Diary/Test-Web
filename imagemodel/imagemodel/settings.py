@@ -1,13 +1,9 @@
 import tensorflow.compat.v1 as tf
 from keras.applications import vgg16
 from tensorflow.python.keras.backend import set_session
+import os
 
 tf.disable_v2_behavior()
-
-#
-# config = tf.compat.v1.global_variables_initializer()
-# SESS = tf.compat.v1.Session(config=config)
-#
 
 SESS = tf.compat.v1.Session()
 GRAPH1 = tf.get_default_graph()
@@ -18,7 +14,6 @@ IMAGE_MODEL = vgg16.VGG16(weights="imagenet")
 
 
 from pathlib import Path
-import os
 import keras
 import numpy as np
 

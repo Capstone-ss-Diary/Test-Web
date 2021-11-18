@@ -10,7 +10,6 @@ from tensorflow.python.keras.backend import set_session
 def model(request):
     if request.method == "POST":
 
-        # image API
         file = request.FILES["imageFile"]
         file_name = default_storage.save(file.name, file)
         file_url = default_storage.path(file_name)
@@ -20,13 +19,11 @@ def model(request):
         image_batch = np.expand_dims(numpy_array, axis=0)
         processed_image = vgg16.preprocess_input(image_batch.copy())
 
-        # predict
         with settings.GRAPH1.as_default():
             set_session(settings.SESS)
             predictions = settings.IMAGE_MODEL.predict(processed_image)
 
-        # output
-        label = decode_predictions(predictions, top=10)
+        label = decode_predictions(predictions, top=1)
         return render(request, "model.html", {"predictions": label})
 
     else:
